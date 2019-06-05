@@ -47,6 +47,11 @@ void UVideoData::ReadJson(const FString& jsonData)
 
 			VideoData.frames.Add(t);
 		}
+
+		VideoData.frames.Sort([](const FFrameData& a, const FFrameData& b)
+		{
+			return a.frame < b.frame;
+		});
 	}
 }
 
