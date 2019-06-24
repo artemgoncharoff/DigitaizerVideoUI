@@ -39,7 +39,10 @@ public class DigitArchVideo : ModuleRules
 				"Slate",
 				"SlateCore",
                 "Json",
-                "JsonUtilities"
+                "JsonUtilities",
+                "HTTP",
+                "Networking",
+                "Sockets"
                 // ... add private dependencies that you statically link with here ...	
 			}
 			);
