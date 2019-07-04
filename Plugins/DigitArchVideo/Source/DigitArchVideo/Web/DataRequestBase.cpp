@@ -8,6 +8,10 @@ TSharedPtr<IHttpRequest> DataRequestBase::CreateHttpRequest(const FString& urlRe
 	auto request = FHttpModule::Get().CreateRequest();
 
 	request->SetHeader("Content-Type", "application/json");
+
+	if(!ID.IsEmpty())
+		request->SetHeader("UserId", ID);
+
 	request->SetURL(GetServerUrl(urlReq));
 	
 	return request;

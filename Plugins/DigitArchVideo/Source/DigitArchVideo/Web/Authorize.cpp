@@ -32,6 +32,8 @@ void UAuthorize::OnCompleted(FHttpRequestPtr Req, FHttpResponsePtr Resp, bool su
 	ID = Resp->GetContentAsString();
 
 	UE_LOG(LogTemp, Log, TEXT("%s"), *ID);
+
+	AuthorizeDelegate.Broadcast();
 }
 
 void UAuthorize::Activate()

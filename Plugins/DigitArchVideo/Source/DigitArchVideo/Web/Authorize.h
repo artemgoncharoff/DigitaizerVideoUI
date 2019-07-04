@@ -7,7 +7,7 @@
 #include "DataRequestBase.h"
 #include "Authorize.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegatTest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAuthorizeDelegate);
 
 USTRUCT()
 struct FAuthorizeT
@@ -38,12 +38,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static UAuthorize* Registrate(FString name);
 
+	UPROPERTY(BlueprintAssignable)
+		FAuthorizeDelegate AuthorizeDelegate;
 
 	void OnCompleted(FHttpRequestPtr Req, FHttpResponsePtr Resp, bool success) override;
 
 private:
-
-	FDelegatTest* DelegatTest;
+	
 
 	TSharedPtr<IHttpRequest> HttpRequest;
 	virtual void Activate() override;
