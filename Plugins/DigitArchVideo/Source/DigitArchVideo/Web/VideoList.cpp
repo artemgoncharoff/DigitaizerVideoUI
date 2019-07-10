@@ -32,6 +32,26 @@ UVideoList* UVideoList::GetVideoMeta()
 	return obj;
 }
 
+UVideoList* UVideoList::SetNewCoordinate(FNewCoordinate data)
+{
+	auto obj = NewObject<UVideoList>();
+
+	obj->HttpRequest = obj->CreateHttpRequest("api/file/edit");
+
+	obj->HttpRequest->SetVerb("PUT");
+
+	FString json;
+
+	FJsonObjectConverter::UStructToJsonObjectString(data, json);
+
+	obj->HttpRequest->SetContentAsString(json);
+
+	obj->HttpRequest->OnProcessRequestComplete().BindUObject(obj, &UVideoList::OnCompletedMeta);
+	obj->HttpRequest->ProcessRequest();
+
+	return obj;
+}
+
 void UVideoList::ParseResp(const FString& jsonData)
 {
 	const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(jsonData);
@@ -46,8 +66,6 @@ void UVideoList::ParseResp(const FString& jsonData)
 			dateS.VideoName.Add(json->AsString());
 		}
 	}
-
-	
 
 	VideoListDelegate.Broadcast(dateS);
 }
