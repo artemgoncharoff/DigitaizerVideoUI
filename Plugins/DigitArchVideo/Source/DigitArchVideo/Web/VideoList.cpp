@@ -74,7 +74,5 @@ void UVideoList::OnCompletedMeta(FHttpRequestPtr Req, FHttpResponsePtr Resp, boo
 
 	data->ReadJson(Resp->GetContentAsString());
 
-	GLog->Log(Resp->GetContentAsString());
-
 	VideoMeta.Broadcast(data);
 }
