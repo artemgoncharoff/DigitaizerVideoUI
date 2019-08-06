@@ -17,17 +17,12 @@ TSharedPtr<IHttpRequest> DataRequestBase::CreateHttpRequest(const FString& urlRe
 	return request;
 }
 
-FString DataRequestBase::CombineURL(const FString& urlReq)
-{
-	return ServerUrl / urlReq;
-}
-
-FString DataRequestBase::GetServerUrl(const FString& urlReq)
+FString DataRequestBase::GetUrl()
 {
 	const FString JsonPath = FPaths::ProjectConfigDir() / "setting.json";
 
 	FString data;
-	
+
 	if (!FFileHelper::LoadFileToString(data, *JsonPath)) {
 		UE_LOG(LogTemp, Error, TEXT("Not setting!"));
 		return "";
@@ -43,6 +38,17 @@ FString DataRequestBase::GetServerUrl(const FString& urlReq)
 			return "";
 		}
 	}
+	return ServerUrl;
+}
+
+FString DataRequestBase::CombineURL(const FString& urlReq)
+{
+	return ServerUrl / urlReq;
+}
+
+FString DataRequestBase::GetServerUrl(const FString& urlReq)
+{
+	GetUrl();
 
 	return CombineURL(urlReq);
 }

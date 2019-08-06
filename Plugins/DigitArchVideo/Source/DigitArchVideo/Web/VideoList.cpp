@@ -52,6 +52,46 @@ UVideoList* UVideoList::SetNewCoordinate(FNewCoordinate data)
 	return obj;
 }
 
+UVideoList* UVideoList::AddPoint(FAddRequest point)
+{
+	auto obj = NewObject<UVideoList>();
+
+	obj->HttpRequest = obj->CreateHttpRequest("api/file/addpoint");
+
+	obj->HttpRequest->SetVerb("POST");
+
+	FString json;
+
+	FJsonObjectConverter::UStructToJsonObjectString(point, json);
+
+	obj->HttpRequest->SetContentAsString(json);
+
+	obj->HttpRequest->OnProcessRequestComplete().BindUObject(obj, &UVideoList::OnCompletedMeta);
+	obj->HttpRequest->ProcessRequest();
+
+	return obj;
+}
+
+UVideoList* UVideoList::DeletePoint(FNewCoordinate point)
+{
+	auto obj = NewObject<UVideoList>();
+
+	obj->HttpRequest = obj->CreateHttpRequest("api/file/deletepoint");
+
+	obj->HttpRequest->SetVerb("POST");
+
+	FString json;
+
+	FJsonObjectConverter::UStructToJsonObjectString(point, json);
+
+	obj->HttpRequest->SetContentAsString(json);
+
+	obj->HttpRequest->OnProcessRequestComplete().BindUObject(obj, &UVideoList::OnCompletedMeta);
+	obj->HttpRequest->ProcessRequest();
+
+	return obj;
+}
+
 void UVideoList::ParseResp(const FString& jsonData)
 {
 	const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(jsonData);

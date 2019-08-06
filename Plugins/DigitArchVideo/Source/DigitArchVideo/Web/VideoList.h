@@ -8,6 +8,20 @@
 #include "VideoData.h"
 #include "VideoList.generated.h"
 
+USTRUCT(BlueprintType)
+struct FAddRequest
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Frame;
+	UPROPERTY(BlueprintReadWrite)
+	int32 PeopleIndex;
+	UPROPERTY(BlueprintReadWrite)
+		float x;
+	UPROPERTY(BlueprintReadWrite)
+	float y;
+};
 
 USTRUCT(BlueprintType)
 struct FVideoListStruct
@@ -64,6 +78,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	static UVideoList* SetNewCoordinate(FNewCoordinate data);
+
+	UFUNCTION(BlueprintCallable)
+	static UVideoList* AddPoint(FAddRequest point);
+
+	UFUNCTION(BlueprintCallable)
+		static UVideoList* DeletePoint(FNewCoordinate point);
 
 private:
 

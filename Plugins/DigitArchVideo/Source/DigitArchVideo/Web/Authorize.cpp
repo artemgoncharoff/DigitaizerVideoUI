@@ -21,6 +21,12 @@ UAuthorize* UAuthorize::Registrate(FString name)
 	return obj;
 }
 
+FString UAuthorize::GetBackUrl()
+{
+	auto obj = NewObject<UAuthorize>();
+	return obj->GetUrl();
+}
+
 void UAuthorize::OnCompleted(FHttpRequestPtr Req, FHttpResponsePtr Resp, bool success)
 {
 	if (!success) {

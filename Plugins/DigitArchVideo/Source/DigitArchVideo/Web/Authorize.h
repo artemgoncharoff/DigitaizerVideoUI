@@ -41,6 +41,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 		FAuthorizeDelegate AuthorizeDelegate;
 
+	UFUNCTION(BlueprintPure)
+	static FString GetBackUrl();
+
 	void OnCompleted(FHttpRequestPtr Req, FHttpResponsePtr Resp, bool success) override;
 
 private:

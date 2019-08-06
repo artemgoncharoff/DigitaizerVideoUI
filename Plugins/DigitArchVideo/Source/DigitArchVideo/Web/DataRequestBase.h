@@ -15,6 +15,7 @@ public:
 	
 	FString ID;
 
+	FString GetUrl();
 
 private:
 
